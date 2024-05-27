@@ -3,6 +3,8 @@ import Image from "next/image";
 import React from "react";
 import { SignedOut, UserButton, SignedIn } from "@clerk/nextjs";
 import { Button } from "../ui/button";
+import NavItems from "./NavItems";
+import MobileNav from "./MobileNav";
 
 const Header = () => {
   return (
@@ -17,9 +19,15 @@ const Header = () => {
             title="evently"
           />
         </Link>
+        <SignedIn>
+          <nav className="md:flex-between hidden w-full max-w-xs">
+            <NavItems />
+          </nav>
+        </SignedIn>
         <div className="flex justify-end w-32 gap-3">
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
+            <MobileNav />
           </SignedIn>
           <SignedOut>
             <Button asChild size={"lg"} className="rounded-full">
