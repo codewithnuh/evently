@@ -1,5 +1,7 @@
+import React from "react";
+
 const NavItems = () => {
-  return <div>nav Items</div>;
+  return <div>Nav</div>;
 };
 
 export default NavItems;

@@ -1,7 +1,7 @@
 import React from "react";
 
 const MobileNav = () => {
-  return <div></div>;
+  return <div>Mobile</div>;
 };
 
 export default MobileNav;
