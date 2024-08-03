@@ -17,9 +17,7 @@ const Header = () => {
             height={38}
           />
         </Link>
-        <nav className=" w-full">
-          <NavItems />
-        </nav>
+
         <SignIn></SignIn>
         <div className="w-52 flex justify-end gap-3">
           <SignIn>
