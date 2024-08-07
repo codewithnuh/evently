@@ -23,6 +23,7 @@ const page = () => {
           <Image
             src={"/assets/images/hero.png"}
             width={1000}
+            alt="hero"
             height={1000}
             className="max-h-[70vh] object-center object-contain 2xl:max-h-[50vh]"
           />
