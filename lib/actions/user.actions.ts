@@ -24,13 +24,13 @@ export async function createUser(user: CreateUserParams) {
 export async function getUserById(userId: string) {
   try {
     await connectToDatabase();
-
     const user = await User.findById(userId);
 
     if (!user) throw new Error("User not found");
     return JSON.parse(JSON.stringify(user));
   } catch (error) {
     handleError(error);
+    console.log("error");
   }
 }
 
