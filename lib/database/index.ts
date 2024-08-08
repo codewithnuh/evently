@@ -34,7 +34,7 @@ export const connectToDatabase = async (): Promise<mongoose.Connection> => {
   cached.promise =
     cached.promise ||
     mongoose.connect(MONGODB_URI, {
-      dbName: "evently", // The name of the database to connect to.
+      dbName: "evently-cluster", // The name of the database to connect to.
       bufferCommands: false, // Disables buffering of commands until the connection is established.
     });
 
