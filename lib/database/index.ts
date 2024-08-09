@@ -18,23 +18,12 @@ export const connectToDatabase = async (): Promise<mongoose.Connection> => {
   console.log("connected");
   // Throw an error if the MONGODB_URI environment variable is not found.
   if (!MONGODB_URI) throw new Error("MONGODB_URI NOT FOUND");
-  mongoose.connection.on("connected", () => {
-    console.log("Mongoose connected to DB");
-  });
-
-  mongoose.connection.on("error", (err) => {
-    console.log("Mongoose connection error:", err);
-  });
-
-  mongoose.connection.on("disconnected", () => {
-    console.log("Mongoose disconnected");
-  });
 
   // If no promise exists, create a new connection promise.
   cached.promise =
     cached.promise ||
     mongoose.connect(MONGODB_URI, {
-      dbName: "evently-cluster", // The name of the database to connect to.
+      dbName: "evently", // The name of the database to connect to.
       bufferCommands: false, // Disables buffering of commands until the connection is established.
     });
 
