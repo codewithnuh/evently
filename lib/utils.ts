@@ -1,5 +1,10 @@
 import { type ClassValue, clsx } from "clsx";
+import {
+  generateUploadButton,
+  generateUploadDropzone,
+} from "@uploadthing/react";
 
+import type { OurFileRouter } from "@/app/api/uploadthing/core";
 import { twMerge } from "tailwind-merge";
 import qs from "query-string";
 
@@ -103,3 +108,6 @@ export const handleError = (error: unknown) => {
   console.error(error);
   throw new Error(typeof error === "string" ? error : JSON.stringify(error));
 };
+
+export const UploadButton = generateUploadButton<OurFileRouter>();
+export const UploadDropzone = generateUploadDropzone<OurFileRouter>();
