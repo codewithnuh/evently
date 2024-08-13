@@ -5,7 +5,7 @@ const CreateEvent = () => {
 
   return (
     <>
-      <section className="bg-purple-50 bg-dotted-pattern md:py-10 py-5 bg-center bg-cover border-2 border-purple-700">
+      <section className="bg-purple-50 bg-dotted-pattern md:py-10  py-5 bg-center bg-cover">
         <h3 className="wrapper h3-bold sm:text-left text-center">
           {" "}
           Create Event
