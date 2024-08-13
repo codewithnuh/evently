@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, Dispatch, SetStateAction } from "react";
-// import type { FileWithPath } from "@uploadthing/react";
 import { useDropzone } from "@uploadthing/react/hooks";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 
@@ -14,19 +13,38 @@ type FileUploaderProps = {
   setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
+/**
+ * FileUploader Component
+ *
+ * This component provides a UI for uploading image files.
+ * It uses a drag-and-drop interface and also allows users
+ * to select files from their computer. The uploaded file is
+ * processed and its URL is passed to a callback function.
+ *
+ * @param {string} imageUrl - The current URL of the image to be displayed.
+ * @param {(url: string) => void} onFieldChange - Callback function to update the parent component with the file's URL.
+ * @param {Dispatch<SetStateAction<File[]>>} setFiles - Function to update the state with the selected files.
+ *
+ * @returns JSX.Element
+ */
 export function FileUploader({
   imageUrl,
   onFieldChange,
   setFiles,
 }: FileUploaderProps) {
-  const onDrop = useCallback((acceptedFiles: FileWithPath[]) => {
-    setFiles(acceptedFiles);
-    onFieldChange(convertFileToUrl(acceptedFiles[0]));
-  }, []);
+  // Handle file drop and convert the file to a URL
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      setFiles(acceptedFiles);
+      onFieldChange(convertFileToUrl(acceptedFiles[0]));
+    },
+    [setFiles, onFieldChange]
+  );
 
+  // Initialize the dropzone with specific settings
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept: "image/*" ? generateClientDropzoneAccept(["image/*"]) : undefined,
+    accept: generateClientDropzoneAccept(["image/*"]),
   });
 
   return (
@@ -37,7 +55,7 @@ export function FileUploader({
       <input {...getInputProps()} className="cursor-pointer" />
 
       {imageUrl ? (
-        <div className=" flex justify-center flex-1 w-full h-full">
+        <div className="flex justify-center flex-1 w-full h-full">
           <img
             src={imageUrl}
             alt="image"
