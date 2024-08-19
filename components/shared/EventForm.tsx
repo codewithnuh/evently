@@ -1,15 +1,13 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { useUploadThing } from "@/lib/uploadthing";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -23,21 +21,21 @@ import { useState } from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import { Checkbox } from "../ui/checkbox";
-import { useRouter } from "next/navigation";
-// import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import { IEvent } from "@/lib/database/models/event.model";
 import { Checkbox } from "../ui/checkbox";
-
+import { createEvent } from "@/lib/actions/event.actions";
+import { useRouter } from "next/navigation";
 type EventFormProps = {
   userId: string;
   type: "Create" | "Update";
   event?: IEvent;
   eventId?: string;
 };
-
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
+  const router = useRouter();
   const [files, setFiles] = useState<File[]>([]);
+  const { startUpload } = useUploadThing("imageUploader");
+
   const initialValues =
     event && type === "Update"
       ? {
@@ -46,14 +44,32 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           endDateTime: new Date(event.endDateTime),
         }
       : eventDefaultValues;
-  const router = useRouter();
-
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: initialValues,
   });
-  const onSubmit = (values: z.infer<typeof eventFormSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof eventFormSchema>) => {
+    let uploadedImageUrl = values.imageUrl;
+    if (files.length > 0) {
+      const uploadedImages = await startUpload(files);
+      if (!uploadedImages) return;
+      uploadedImageUrl = uploadedImages[0].url;
+    }
+    if (type === "Create") {
+      try {
+        const newEvent = await createEvent({
+          event: { ...values, imageUrl: uploadedImageUrl },
+          userId,
+          path: "/",
+        });
+        if (newEvent) {
+          router.push(`/events/${newEvent._id}`);
+          form.reset();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -304,10 +320,10 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
         <Button
           type="submit"
           size="lg"
-          // disabled={form.formState.isSubmittin
+          disabled={form.formState.isSubmitting}
           className="button w-full col-span-2"
         >
-          Submit
+          {form.formState.isSubmitting ? "Submiting" : `${type} Event`}
         </Button>
       </form>
     </Form>

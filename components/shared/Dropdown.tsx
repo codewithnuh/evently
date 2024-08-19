@@ -19,6 +19,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "../ui/input";
+import { createCategory } from "@/lib/actions/category.actions";
+import { getAllCategories } from "@/lib/actions/category.actions";
 
 type DropdownProps = {
   value?: string;
@@ -29,11 +31,23 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [newCategory, setNewCategory] = useState("");
 
-  const handleAddCategory = () => {};
-
+  const handleAddCategory = () => {
+    createCategory({
+      categoryName: newCategory.trim(),
+    }).then((category: ICategory) => {
+      setCategories((prevState) => [...prevState, category]);
+    });
+  };
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoryList = await getAllCategories();
+      categoryList && setCategories(categoryList as ICategory[]);
+    };
+    getCategories();
+  }, []);
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
-      <SelectTrigger className="select-field">
+      <SelectTrigger className="select-field focus:border-0 focus-visible:ring-0 focus:outline-none">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
       <SelectContent>
