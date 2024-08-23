@@ -60,7 +60,7 @@ export async function createEvent({ userId, event, path }: CreateEventParams) {
       organizer: userId,
     });
     console.log({
-      categorId: event.categoryId,
+      categoryId: event.categoryId,
       userId,
     });
     revalidatePath(path);

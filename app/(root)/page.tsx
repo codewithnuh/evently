@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import Collection from "@/components/shared/Collection";
 
 const page = () => {
   return (
@@ -39,6 +40,15 @@ const page = () => {
         <div className="md:flex-row flex flex-col w-full gap-5">
           search categeor
         </div>
+        <Collection
+          data={[]}
+          emptyTitle={"No events found"}
+          epmtyStateSubtext={"Comeback later"}
+          collectionType="Events_Organized"
+          limit={6}
+          page={1}
+          totalPages={2}
+        />
       </section>
     </>
   );
