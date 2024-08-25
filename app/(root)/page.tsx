@@ -3,8 +3,16 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import Collection from "@/components/shared/Collection";
+import { getAllEvents } from "@/lib/actions/event.actions";
 
-const page = () => {
+const HomePage = async () => {
+  const events = await getAllEvents({
+    query: "",
+    category: "",
+    page: 1,
+    limit: 6,
+  });
+  console.log(events);
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern md:py-10 py-5 bg-contain">
@@ -41,7 +49,7 @@ const page = () => {
           search categeor
         </div>
         <Collection
-          data={[]}
+          data={events?.data}
           emptyTitle={"No events found"}
           epmtyStateSubtext={"Comeback later"}
           collectionType="Events_Organized"
@@ -54,4 +62,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default HomePage;
