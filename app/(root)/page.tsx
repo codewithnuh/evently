@@ -66,13 +66,13 @@ const HomePage = async () => {
       </section>
       <section
         id="events "
-        className="wrapper md:gap-12 flex flex-col gap-8 my-8 border-2 border-red-500"
+        className="wrapper md:gap-12 flex flex-col gap-8 my-8"
       >
         <h2 className="h2-bold">
           Trusted by <br /> Thousands of Events
         </h2>
         <div className="md:flex-row flex flex-col w-full gap-5">
-          search categeor
+          search category
         </div>
 
         <Collection
