@@ -58,7 +58,6 @@ export async function getEventById(eventId: string) {
     await connectToDatabase();
 
     const event = await populateEvent(Event.findById(eventId));
-
     if (!event) throw new Error("Event not found");
 
     return JSON.parse(JSON.stringify(event));

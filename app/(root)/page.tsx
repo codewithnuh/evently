@@ -74,6 +74,7 @@ const HomePage = async () => {
         <div className="md:flex-row flex flex-col w-full gap-5">
           search categeor
         </div>
+
         <Collection
           data={events?.data}
           emptyTitle={"No events found"}
