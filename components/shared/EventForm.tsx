@@ -25,6 +25,8 @@ import { IEvent } from "@/lib/database/models/event.model";
 import { Checkbox } from "../ui/checkbox";
 import { createEvent, updateEvent } from "@/lib/actions/event.actions";
 import { useRouter } from "next/navigation";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
 type EventFormProps = {
   userId: string;
   type: "Create" | "Update";
@@ -336,14 +338,21 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             )}
           />
         </div>
-        <Button
-          type="submit"
-          size="lg"
-          disabled={form.formState.isSubmitting}
-          className="button w-full col-span-2"
-        >
-          {form.formState.isSubmitting ? "Submiting" : `${type} Event`}
-        </Button>
+        <SignedOut>
+          <Button asChild size="lg" className="button w-full col-span-2">
+            <Link href="/sign-in">Submit</Link>
+          </Button>
+        </SignedOut>
+        <SignedIn>
+          <Button
+            type="submit"
+            size="lg"
+            disabled={form.formState.isSubmitting}
+            className="button w-full col-span-2"
+          >
+            {form.formState.isSubmitting ? "Submitting" : `${type} Event`}
+          </Button>
+        </SignedIn>
       </form>
     </Form>
   );

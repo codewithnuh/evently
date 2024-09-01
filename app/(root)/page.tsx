@@ -79,7 +79,7 @@ const HomePage = async () => {
           data={events?.data}
           emptyTitle={"No events found"}
           emptyStateSubtext={"Comeback later"}
-          collectionType="Events_Organized"
+          collectionType="all_Events"
           limit={6}
           page={1}
           totalPages={2}

@@ -8,7 +8,7 @@ export interface IEvent extends Document {
   imageUrl?: string; // Optional
   startDateTime: Date;
   endDateTime: Date;
-  price?: string; // Optional
+  price: string;
   isFree: boolean;
   url?: string; // Optional
   category?: { _id: string; name: string };

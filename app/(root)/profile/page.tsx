@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React from "react";
-
-const Profile = () => {
+import { auth } from "@clerk/nextjs/server";
+import { getEventsByUser } from "@/lib/actions/event.actions";
+import Collection from "@/components/shared/Collection";
+const Profile = async () => {
+  const { sessionClaims } = auth();
+  const userId = sessionClaims?.userId as string;
+  const organizedEvents = await getEventsByUser({ userId, page: 1 });
   return (
     <>
       {/* MY Tickets */}
@@ -39,18 +44,16 @@ const Profile = () => {
         </div>
       </section>
 
-      {/* <Collection
-        data={events?.data}
+      <Collection
+        data={organizedEvents?.data}
         emptyTitle={"No Events have been created yet"}
-        emptyStateSubtext={
-          "No worries - plenty of exciting events to explore "
-        }
-        collectionType="My_Tickets"
+        emptyStateSubtext={"No worries - plenty of exciting events to explore "}
+        collectionType="Events_Organized"
         limit={3}
         page={1}
         totalPages={2}
-        urlParamName=""
-      /> */}
+        urlParamName="eventsPage"
+      />
     </>
   );
 };

@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Collection from "@/components/shared/Collection";
+import CheckoutButton from "@/components/shared/CheckoutButton";
 
 const EventDetails = async ({
   params: { id },
@@ -53,6 +54,7 @@ const EventDetails = async ({
               </div>
             </div>
             {/* Checkout button */}
+            <CheckoutButton event={event} />
             <div className="flex flex-col gap-5 mt-5">
               <div className="md:gap-3 flex gap-2">
                 <Image
