@@ -6,6 +6,7 @@ import Collection from "@/components/shared/Collection";
 import { getAllEvents } from "@/lib/actions/event.actions";
 import Search from "@/components/shared/Search";
 import { SearchParamProps } from "@/types";
+import CategoryFilter from "@/components/shared/CategoryFilter";
 
 // This component represents the home page of the application
 const HomePage = async ({ searchParams }: SearchParamProps) => {
@@ -60,6 +61,7 @@ const HomePage = async ({ searchParams }: SearchParamProps) => {
         <div className="md:flex-row flex flex-col w-full gap-5">
           {/* Search component for filtering events */}
           <Search placeholder="Search Events" />
+          <CategoryFilter />
         </div>
 
         {/* Displaying events collection */}
