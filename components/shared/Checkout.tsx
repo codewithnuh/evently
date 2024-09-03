@@ -1,9 +1,16 @@
+"use client";
 import { IEvent } from "@/lib/database/models/event.model";
 import React, { useEffect } from "react";
 import { Button } from "../ui/button";
-import { checkoutOrder } from "@/lib/actions/order.action";
+import { checkoutOrder } from "@/lib/actions/order.actions";
+import { loadStripe } from "@stripe/stripe-js";
 
 const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
+  // Make sure to call `loadStripe` outside of a component’s render to avoid
+  // recreating the `Stripe` object on every render.
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  );
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search);
