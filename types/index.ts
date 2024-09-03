@@ -1,3 +1,4 @@
+import { Document } from "mongoose";
 // ====== USER PARAMS
 export type CreateUserParams = {
   clerkId: string;
@@ -76,7 +77,7 @@ export type GetRelatedEventsByCategoryParams = {
   page: number | string;
 };
 
-export type Event = {
+export interface Event extends Document {
   _id: string;
   title: string;
   description: string;
@@ -96,7 +97,7 @@ export type Event = {
     _id: string;
     name: string;
   };
-};
+}
 
 // ====== CATEGORY PARAMS
 export type CreateCategoryParams = {
