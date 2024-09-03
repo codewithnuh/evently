@@ -1,46 +1,30 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
 import Collection from "@/components/shared/Collection";
 import { getAllEvents } from "@/lib/actions/event.actions";
+import Search from "@/components/shared/Search";
+import { SearchParamProps } from "@/types";
 
-const HomePage = async () => {
+// This component represents the home page of the application
+const HomePage = async ({ searchParams }: SearchParamProps) => {
+  // Extracting search parameters
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string) || "";
+  const category = (searchParams?.category as string) || "";
+
+  // Fetching events based on search parameters
   const events = await getAllEvents({
-    query: "",
-    category: "",
-    page: 1,
+    query: searchText,
+    category,
+    page,
     limit: 6,
   });
-  // const events = {
-  //   data: [
-  //     {
-  //       _id: "66c341eeffd17764fa52ad7e",
-  //       title: "React in 100 Words: Building Dynamic Web Apps",
-  //       description: "aaaaaaaaaaaaaaaaaaaaaaaaa",
-  //       location: "sadazdas",
-  //       createdAt: "2024-08-19T13:00:28.491Z",
-  //       imageUrl:
-  //         "https://utfs.io/f/4f4cd3c2-4412-4398-950a-2fcd5de82576-1e3tss.jpg",
-  //       startDateTime: "2024-08-19T12:59:49.754Z",
-  //       endDateTime: "2024-08-19T12:59:49.754Z",
-  //       price: "",
-  //       isFree: true,
-  //       url: "https://youtu.be/loejrhKNoSc?si=JDziv_pmE_gKgnf5",
-  //       category: {
-  //         _id: "erer",
-  //         name: "nextJs",
-  //       },
-  //       organizer: [Object],
-  //       __v: 0,
-  //     },
-  //   ],
-  //   totalPages: 1,
-  // };
 
-  // console.log(events);
   return (
     <>
+      {/* Hero section */}
       <section className="bg-primary-50 bg-dotted-pattern md:py-10 py-5 bg-contain">
         <div className="wrapper md:grid-cols-2 2xl:gap-0 grid grid-cols-1 gap-5">
           <div className="flex flex-col justify-center gap-8">
@@ -64,26 +48,32 @@ const HomePage = async () => {
           />
         </div>
       </section>
+
+      {/* Events section */}
       <section
-        id="events "
+        id="events"
         className="wrapper md:gap-12 flex flex-col gap-8 my-8"
       >
         <h2 className="h2-bold">
           Trusted by <br /> Thousands of Events
         </h2>
         <div className="md:flex-row flex flex-col w-full gap-5">
-          search category
+          {/* Search component for filtering events */}
+          <Search placeholder="Search Events" />
         </div>
 
-        <Collection
-          data={events?.data}
-          emptyTitle={"No events found"}
-          emptyStateSubtext={"Comeback later"}
-          collectionType="all_Events"
-          limit={6}
-          page={1}
-          totalPages={2}
-        />
+        {/* Displaying events collection */}
+        <Suspense fallback={<p>Loading...</p>}>
+          <Collection
+            data={events?.data}
+            emptyTitle={"No events found"}
+            emptyStateSubtext={"Comeback later"}
+            collectionType="all_Events"
+            limit={6}
+            page={1}
+            totalPages={2}
+          />
+        </Suspense>
       </section>
     </>
   );
