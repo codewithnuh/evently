@@ -73,7 +73,7 @@ const HomePage = async ({ searchParams }: SearchParamProps) => {
             collectionType="all_Events"
             limit={6}
             page={1}
-            totalPages={2}
+            totalPages={events?.totalPages}
           />
         </Suspense>
       </section>
