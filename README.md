@@ -22,9 +22,9 @@
 2. ⚙️ [Tech Stack](#tech-stack)
 3. 🔋 [Features](#features)
 4. 🤸 [Quick Start](#quick-start)
-5. 🕸️ [Snippets](#snippets)
-6. 🔗 [Links](#links)
-7. 🚀 [More](#more)## <a name="introduction">🤖 Introduction</a>
+
+
+## <a name="introduction">🤖 Introduction</a>
 
 Introducing Evently – your all-in-one event management platform. Whether you're hosting an event or attending one, Evently makes it easy to buy and sell tickets, manage orders, and handle every detail with confidence. With intuitive tools for creating, updating, and managing your events, Evently streamlines the entire process, ensuring a seamless experience for organizers and attendees alike. Simplify your event management with Evently.
 
@@ -80,4 +80,3 @@ Make sure you have the following installed on your machine:
 
 
 
-#
