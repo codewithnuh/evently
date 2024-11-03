@@ -3,10 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": " next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
+  },
+  "packageManager": "npm@10.8.1",
+  "overide": {
+    "react": "$react",
+    "react-dom": "$react-dom",
+    "next": "$next"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.14",
@@ -23,14 +29,15 @@
     "@uploadthing/react": "^6.6.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "eslint-config-next": "^15.0.2",
     "lucide-react": "^0.379.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.2",
-    "next": "^14.2.5",
+    "next": "^15.0.2",
     "query-string": "^9.1.0",
-    "react": "^18",
+    "react": "^19.0.0-rc-7c8e5e7a-20241101",
     "react-datepicker": "^7.3.0",
-    "react-dom": "^18",
+    "react-dom": "^19.0.0-rc-7c8e5e7a-20241101",
     "react-hook-form": "^7.51.5",
     "stripe": "^16.9.0",
     "svix": "^1.28.0",
